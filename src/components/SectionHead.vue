@@ -3,7 +3,7 @@ defineProps({ title: String, lead: String })
 </script>
 
 <template>
-  <div class="section-head">
+  <div class="sec-head">
     <h2>{{ title }}</h2>
     <p v-if="lead" class="lead">{{ lead }}</p>
   </div>

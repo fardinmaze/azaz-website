@@ -50,14 +50,24 @@ All text turns italic on hover **except** the language toggle, the "Mohammad Aza
 ### Figma assets
 Exported to `src/assets/design/`. Photos were converted to WebP (about 15 MB → 0.9 MB). The talks video is the only large file (3.4 MB).
 
+## 4b. Inner pages (About, Research, Books, Media)
+
+Restyled to share the landing page's visual language (no separate Figma exists for them, so these are derived from the landing design):
+- **Header** (`SiteHeader.vue`): light-blue bar, Poppins brand, Ranade links, the current page marked with the pink-red tab, En/Bn toggle. Collapses to a brand row plus a swipeable link row below 900px.
+- **Hero band** (`PageHero.vue`): coloured block with kicker and 52px Zodiak title plus a light-blue side panel for the lead text. Tones follow the landing tiles: yellow (About), green (Research), white with red title (Books), blue (Media).
+- **Cards** (`ItemCard.vue`): hairline-bordered grid cells, Zodiak blue titles, green summaries, red action link; hover turns the title red and italic on a light-blue background. Books cards show the full summary and the cover in the landing's red-bordered style.
+- **About**: portrait (black and white, colour on hover) beside the biography, with a larger lead paragraph.
+- **Footer** (`SiteFooter.vue`): the landing's strip of social icons and Privacy / Contact / FAQ links, plus a copyright line. Shared social data lives in `src/data/socials.js`.
+- All old global styles (`.wrap`, `.hero`, `.menu-btn`, old `nav` rules, etc.) were removed; `src/styles.css` now starts with shared design tokens.
+- Inner-page images (`src/assets/img`) were converted to WebP (19 MB → 2 MB); `items.json` and `scripts/build-items.mjs` reference `.webp`.
+
 ## 5. Known issues and open items
 
 - **Social links** in the footer are `#`; real profile URLs needed.
 - **Search box** is visual only.
 - **"Liberations War"** is a typo in the Figma file; the site uses "Liberation War".
 - **Cover photo on touch screens** stays black and white (no hover). Could be switched to colour on touch.
-- **Inner pages** (About, Research, Books, Media) still use the earlier visual design and the old `src/assets/img/*.png` files (about 20 MB). They need compressing and, ideally, restyling to match the landing page.
-- **Dead CSS** from the old hero (`.hero`, `.hero-grid`, `.portrait-ph`, `.btn`) can be removed once the inner pages are restyled.
+- **Inner pages** were restyled from the landing design without their own Figma frames; check them against any later designs. Tablet and phone layouts for them are untested in a rendered browser.
 - **SEO / hosting:** per-route titles, Open Graph tags, a favicon and an SPA rewrite rule (for example `vercel.json`) are still to do.
 - The `build-items.mjs` fragility described in section 3.
 - **Not yet tested:** the phone and tablet layouts were built but not verified in a rendered browser; desktop was tested at 1920×951 only.
@@ -77,4 +87,5 @@ Exported to `src/assets/design/`. Photos were converted to WebP (about 15 MB →
 - Added the Publications image ticker and equal-size book covers.
 - Made the desktop view fit the viewport with no scroll and edge-to-edge width.
 - Added adaptive tablet and phone layouts.
+- Restyled About, Research, Books and Media (header, hero bands, cards, footer) to match the landing; compressed inner-page images to WebP.
 - Tested the desktop view in the browser (layout, hovers, language switch, route navigation).

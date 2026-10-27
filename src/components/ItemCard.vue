@@ -5,6 +5,7 @@ defineProps({
   item: { type: Object, required: true },
   action: { type: String, default: 'open' },
   portrait: { type: Boolean, default: true },
+  full: { type: Boolean, default: false }, // show the whole summary instead of clamping it
 })
 </script>
 
@@ -17,7 +18,7 @@ defineProps({
     <div class="body">
       <p v-if="item.kind || item.outlet" class="kicker">{{ item.kind || item.outlet }}</p>
       <h3>{{ item.title }}</h3>
-      <p v-if="item.summary" class="summary">{{ item.summary }}</p>
+      <p v-if="item.summary" class="summary" :class="{ full }">{{ item.summary }}</p>
       <p v-if="item.cite" class="cite">{{ item.cite }}</p>
       <p v-if="item.note && item.note !== 'bn-ongoing'" class="cite">{{ item.note }}</p>
       <p v-if="item.note === 'bn-ongoing'" class="kicker">{{ t('ongoing') }}</p>

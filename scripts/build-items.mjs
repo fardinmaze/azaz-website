@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 const lines = readFileSync('docs/content-extracted.txt', 'utf8').split(/\r?\n/)
 const L = (n) => lines[n - 1].trim()
 const J = (...ns) => ns.map(L).filter(Boolean).join(' ')
-const img = (n) => `image${n}.${n === 21 ? 'jpg' : 'png'}`
+const img = (n) => `image${n}.webp`
 
 const resources = [
   { title: L(36), summary: J(38, 39), url: L(41), image: img(12), lang: 'en' },

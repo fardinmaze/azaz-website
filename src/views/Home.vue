@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { lang, t, toggleLang } from '../i18n'
 import bio from '../data/bio.json'
 import items from '../data/items.json'
+import { socials } from '../data/socials'
 
 const asset = (name) => new URL(`../assets/design/${name}`, import.meta.url).href
 
@@ -61,14 +62,6 @@ const stack = [
 ]
 
 const ticker = [...items.articles, ...items.videos.slice(0, 2)].map((i) => i.title)
-
-// TODO: replace '#' with the real profile URLs once supplied
-const socials = [
-  { name: 'Facebook', icon: 'fb.svg', w: 24, flip: true },
-  { name: 'YouTube', icon: 'youtube.svg', w: 34 },
-  { name: 'LinkedIn', icon: 'linkedin.svg', w: 24 },
-  { name: 'Instagram', icon: 'instagram.svg', w: 24 },
-]
 </script>
 
 <template>
