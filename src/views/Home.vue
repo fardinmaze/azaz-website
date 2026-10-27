@@ -18,21 +18,11 @@ const measure = () => {
   document.documentElement.classList.toggle('ld-noscroll', fit.value)
 }
 measure()
-onMounted(() => {
-  window.addEventListener('resize', measure)
-  // touch screens have no hover, so let the talks video loop quietly instead
-  const touch = window.matchMedia('(hover: none)').matches
-  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (touch && !calm) playVideo()
-})
+onMounted(() => window.addEventListener('resize', measure))
 onUnmounted(() => {
   window.removeEventListener('resize', measure)
   document.documentElement.classList.remove('ld-noscroll')
 })
-
-const video = ref(null)
-const playVideo = () => video.value?.play().catch(() => {})
-const pauseVideo = () => video.value?.pause()
 
 const intro = computed(() => bio[lang.value][0])
 
@@ -177,9 +167,9 @@ const socials = [
         </div>
       </router-link>
 
-      <router-link to="/media" class="ld-talks" @mouseenter="playVideo" @mouseleave="pauseVideo" @focusin="playVideo" @focusout="pauseVideo">
+      <router-link to="/media" class="ld-talks">
         <p>{{ t('talksTitle') }}</p>
-        <video ref="video" class="ld-video" :src="asset('gemini_generated_video_84b8b154.mp4') + '#t=0.1'" muted loop playsinline preload="auto" aria-hidden="true"></video>
+        <video class="ld-video" :src="asset('gemini_generated_video_84b8b154.mp4')" autoplay muted loop playsinline aria-hidden="true"></video>
       </router-link>
 
       <footer class="ld-foot">

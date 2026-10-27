@@ -34,7 +34,7 @@ Rebuilt from the Figma frame **Landing** (node `8:2137`, 1440×1080). Implemente
 - **Ticker** — red strip, continuous marquee from `items.json` titles.
 - **Publications / Research / News Media** — green panel; the cover images scroll as a slow vertical ticker (45s loop), horizontal on phones.
 - **Books** — three equal-size covers; hovering one brings it forward and shows its title and a five-line summary from the Books page. Description sits inside the cover so the panel never resizes.
-- **Talks in Press Media** — blue panel with `gemini_generated_video_84b8b154.mp4`; plays on hover, pauses on leave (autoplays quietly on touch screens unless reduced motion is set).
+- **Talks in Press Media** — blue panel with `gemini_generated_video_84b8b154.mp4`; autoplays muted and loops continuously (first version; hover-to-play was removed).
 - **Footer strip** — social icons (links are `#` placeholders), Privacy Terms, Contact, FAQ.
 
 ### Hover rules
@@ -72,7 +72,8 @@ Exported to `src/assets/design/`. Photos were converted to WebP (about 15 MB →
 - Analysed the project and listed performance, SEO and content-pipeline issues.
 - Replaced the mosaic home page with the Figma landing design; hid the global header/footer on `/`.
 - Added Fontshare fonts, Figma assets (WebP-compressed) and the talks video.
-- Added hover behaviours: cover colour reveal, themes menu, italic text, books captions, video play.
+- Added hover behaviours: cover colour reveal, themes menu, italic text, books captions.
+- Talks video set to always play (hover-to-play removed for the first version).
 - Added the Publications image ticker and equal-size book covers.
 - Made the desktop view fit the viewport with no scroll and edge-to-edge width.
 - Added adaptive tablet and phone layouts.
