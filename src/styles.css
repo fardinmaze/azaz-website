@@ -26,10 +26,15 @@ button { font: inherit; }
 .pg-lang { display: flex; align-items: center; gap: 4px; padding: 0 20px; background: none; border: 0; cursor: pointer; font: 400 14px/15.5px var(--ranade); letter-spacing: -1px; color: var(--p300); }
 .pg-lang .sep { font: 500 12px var(--poppins); letter-spacing: .1px; }
 .pg-lang .on { color: var(--p700); }
-.pg-search { flex: none; width: 400px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #f8f8f8; border: 1px solid var(--p300); }
+.pg-search { flex: none; width: var(--pg-side); display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #f8f8f8; border: 1px solid var(--p300); }
 .pg-search input { flex: 1; min-width: 0; width: 0; border: 0; background: none; outline: 0; font: italic 400 12px/15.5px var(--zodiak); letter-spacing: -1px; color: var(--p600); }
 .pg-search input::placeholder { color: var(--p600); opacity: 1; }
 .pg-search:focus-within { outline: 2px solid var(--p600); outline-offset: -2px; }
+
+/* inner pages: the body sits between the search box's left edge and the mirrored left margin.
+   --pg-side is the search box width, shared by the header and the page margins (percentages, so scrollbars don't skew it) */
+.pg-head, .pg-main { --pg-side: min(400px, 25%); }
+.pg-main { margin-inline: var(--pg-side); }
 
 /* ---- hero band ---- */
 .pg-hero { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
@@ -76,7 +81,7 @@ button { font: inherit; }
 .pg-hero--lead .pg-hero-main { min-height: 231px; padding: 20px 24px; justify-content: center; }
 .pg-hero--lead .pg-hero-side { padding: 20px 24px; background: var(--ld-bg); }
 .pg-hero--lead .pg-hero-side p { max-width: none; font: 300 24px/1.2 var(--ranade); letter-spacing: -1px; color: var(--p700); }
-.wgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px 25px 25px 24px; }
+.wgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px 1px 25px 0; }
 .wcard { min-height: max(300px, calc((100svh - 305px) / 2)); display: flex; flex-direction: column; margin: 0 -1px -1px 0; border: 1px solid var(--ld-line); overflow: hidden; color: var(--p700); }
 .wcard-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); flex: 1; }
 .wcard-img { position: relative; min-height: 180px; }
@@ -123,6 +128,7 @@ button { font: inherit; }
   .pg-bar { flex-wrap: wrap; }
   .pg-lang { order: 2; min-height: 50px; }
   .pg-search { order: 3; flex: 1; width: auto; min-height: 50px; }
+  .pg-main { margin-inline: 0; }
   .pg-links { order: 1; flex: 1 0 100%; overflow-x: auto; scrollbar-width: none; min-height: 46px; }
   .pg-links::-webkit-scrollbar { display: none; }
   .pg-links a { flex: none; padding: 0 16px; }

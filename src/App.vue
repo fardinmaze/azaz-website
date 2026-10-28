@@ -5,6 +5,6 @@ import SiteFooter from './components/SiteFooter.vue'
 
 <template>
   <SiteHeader v-if="$route.path !== '/'" />
-  <main><router-view /></main>
+  <main :class="{ 'pg-main': $route.path !== '/' }"><router-view /></main>
   <SiteFooter v-if="$route.path !== '/'" />
 </template>
