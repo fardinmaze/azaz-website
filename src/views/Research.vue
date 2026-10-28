@@ -3,16 +3,16 @@ import { t } from '../i18n'
 import items from '../data/items.json'
 import PageHero from '../components/PageHero.vue'
 import SectionHead from '../components/SectionHead.vue'
-import ItemCard from '../components/ItemCard.vue'
+import WideCard from '../components/WideCard.vue'
 </script>
 
 <template>
-  <PageHero :kicker="t('nav.research')" :title="t('pubsTitle')" :lead="t('pubsLead')" tone="green" />
-  <div class="pg-grid three">
-    <ItemCard v-for="i in items.publications" :key="i.title" :item="i" :portrait="false" />
+  <PageHero :kicker="t('nav.research')" :title="t('pubsTitle')" :lead="t('pubsLead')" tone="green" lead-large />
+  <div class="wgrid">
+    <WideCard v-for="i in items.publications" :key="i.title" :item="i" />
   </div>
   <SectionHead :title="t('resourcesTitle')" :lead="t('resourcesLead')" />
-  <div class="pg-grid three">
-    <ItemCard v-for="i in items.resources" :key="i.title" :item="i" :portrait="false" />
+  <div class="wgrid">
+    <WideCard v-for="i in items.resources" :key="i.title" :item="i" />
   </div>
 </template>
