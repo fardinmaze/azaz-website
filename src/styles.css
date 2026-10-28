@@ -20,6 +20,8 @@ button { font: inherit; }
 /* ---- inner pages: header ---- */
 .pg-head { position: sticky; top: 0; z-index: 20; background: var(--p50); }
 .pg-bar { display: flex; align-items: stretch; min-height: 50px; }
+.pg-menu { display: contents; }
+.pg-brand, .pg-burger { display: none; }
 .pg-links { display: flex; flex: 1; min-width: 0; }
 .pg-links a { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 20px; font: 400 14px/15.5px var(--ranade); letter-spacing: -1px; color: var(--p300); white-space: nowrap; }
 .pg-links a:hover { color: var(--p700); font-style: italic; }
@@ -138,20 +140,26 @@ button { font: inherit; }
 
 @media (max-width: 899px) {
   .pg-bar { flex-wrap: wrap; }
-  .pg-lang { order: 2; min-height: 50px; }
-  .pg-search { order: 3; flex: 1; width: auto; min-height: 50px; }
   .pg-main { margin-inline: 0; }
-  .pg-links { order: 1; flex: 1 0 100%; overflow-x: auto; scrollbar-width: none; min-height: 46px; }
-  .pg-links::-webkit-scrollbar { display: none; }
-  .pg-links a { flex: none; padding: 0 16px; }
-  .pg-hero, .pg-hero--video, .pg-hero--lead { grid-template-columns: 1fr; }
+  .pg-brand { display: flex; flex: 1; align-items: center; min-height: 50px; padding: 0 20px; font: 700 20px/1 var(--poppins); letter-spacing: -1px; color: var(--p700); white-space: nowrap; }
+  .pg-burger { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 56px; min-height: 50px; padding: 0 17px; background: none; border: 0; cursor: pointer; }
+  .pg-burger span { display: block; height: 2px; background: var(--p700); transition: transform .2s, opacity .2s; }
+  .pg-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .pg-burger.open span:nth-child(2) { opacity: 0; }
+  .pg-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .pg-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 30; flex-wrap: wrap; background: var(--p50); border-top: 1px solid var(--p300); box-shadow: 0 12px 24px rgba(0, 92, 132, .18); }
+  .pg-menu.open { display: flex; }
+  .pg-links { flex: 1 0 100%; flex-direction: column; }
+  .pg-links a { flex: none; justify-content: flex-start; min-height: 48px; padding: 0 20px; border-bottom: 1px solid var(--p300); }
+  .pg-lang { min-height: 50px; padding: 0 20px; }
+  .pg-search { flex: 1; width: auto; min-height: 50px; }
+  .pg-hero, .pg-hero--video, .pg-hero--lead { grid-template-columns: minmax(0, 1fr); }
   .pg-hero-main::before, .pg-hero-main::after, .pg-hero-side::after { display: none !important; }
   .pg-hero--video { margin-inline: 0; }
   .pg-hero--lead .pg-hero-main { min-height: 0; padding: 24px 20px; }
   .pg-hero--lead .pg-hero-side { padding: 16px 20px 24px; }
   .pg-hero--lead .pg-hero-side p { font-size: 20px; }
   .wgrid { grid-template-columns: 1fr; padding: 16px 17px 17px 16px; }
-  .pg-hero-video { aspect-ratio: 16 / 9; }
   .pg-hero--video .pg-hero-main { padding: 24px 20px; }
   .pg-hero-main { min-height: 0; padding: 32px 20px 28px; }
   .pg-hero h1 { font-size: 38px; line-height: 42px; }
@@ -165,6 +173,12 @@ button { font: inherit; }
   .pg-foot-link { min-height: 56px; }
 }
 @media (max-width: 599px) {
+  /* phones: Talks in Press Media comes before Books */
+  .ld-talks { order: 1; }
+  .ld-books { order: 2; }
+  .ld-foot { order: 3; }
+  .pg-foot-link, .ld-foot-link { font-size: 13px; line-height: 18px; padding: 0 6px; text-align: center; }
+  .pg-copy { padding: 12px 16px; font-size: 11px; }
   .wcard { min-height: 0; }
   .wcard-row { grid-template-columns: 1fr; }
   .wcard-img { height: clamp(180px, 56vw, 280px); }
@@ -295,7 +309,7 @@ html.ld-noscroll, html.ld-noscroll body { overflow: hidden; height: 100%; }
 /* ---- adaptive layouts below the desktop breakpoint (scrolling pages, one layout per device class) ---- */
 @media (max-width: 899px) {
   .ld { max-width: none; }
-  .ld-top { display: grid; min-height: 0; grid-template-columns: 1fr; }
+  .ld-top { display: grid; min-height: 0; grid-template-columns: minmax(0, 1fr); }
   .ld-main, .ld-hero { display: contents; }
 
   /* nav: scrollable link row + pinned language toggle */
