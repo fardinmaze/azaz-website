@@ -11,6 +11,7 @@
 * { box-sizing: border-box; margin: 0; }
 html { scroll-behavior: smooth; }
 body { background: var(--ld-bg); color: var(--ink); font: 400 16px/1.6 var(--zodiak); -webkit-font-smoothing: antialiased; }
+#app { container-type: inline-size; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; }
@@ -26,17 +27,26 @@ button { font: inherit; }
 .pg-lang { display: flex; align-items: center; gap: 4px; padding: 0 20px; background: none; border: 0; cursor: pointer; font: 400 14px/15.5px var(--ranade); letter-spacing: -1px; color: var(--p300); }
 .pg-lang .sep { font: 500 12px var(--poppins); letter-spacing: .1px; }
 .pg-lang .on { color: var(--p700); }
-.pg-search { flex: none; width: var(--pg-side); display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #f8f8f8; border: 1px solid var(--p300); }
+.pg-search { flex: none; width: max(var(--pg-side), 280px); display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #f8f8f8; border: 1px solid var(--p300); }
 .pg-search input { flex: 1; min-width: 0; width: 0; border: 0; background: none; outline: 0; font: italic 400 12px/15.5px var(--zodiak); letter-spacing: -1px; color: var(--p600); }
 .pg-search input::placeholder { color: var(--p600); opacity: 1; }
 .pg-search:focus-within { outline: 2px solid var(--p600); outline-offset: -2px; }
 
-/* inner pages: the body sits between the search box's left edge and the mirrored left margin.
-   --pg-side is the search box width, shared by the header and the page margins (percentages, so scrollbars don't skew it) */
-.pg-head, .pg-main { --pg-side: min(400px, 25%); }
+/* inner pages: --pg-side is the side margin. It is 400px on wide screens and shrinks so the body stays 1120px wide
+   (down to a 24px margin at ~1170px, then the body narrows). Measured in cqw of #app so scrollbars don't skew it.
+   The search box matches the margin where it is >= 280px wide, so the body ends at its left edge on wide screens. */
+.pg-head, .pg-main { --pg-side: clamp(24px, calc((100cqw - 1120px) / 2), 400px); }
 .pg-main { margin-inline: var(--pg-side); }
 
 /* ---- hero band ---- */
+/* hero bands bleed out to the viewport edges; their content keeps its place inside the margins */
+.pg-hero-main, .pg-hero-side { position: relative; }
+.pg-hero-main::before, .pg-hero-side::after { content: ''; position: absolute; top: 0; bottom: 0; width: var(--pg-side); background: inherit; }
+.pg-hero-main::before { right: 100%; }
+.pg-hero-side::after { left: 100%; }
+.pg-hero--lead .pg-hero-side::after { display: none; }
+.tone-light::before, .tone-light::after { bottom: -1px; box-shadow: inset 0 -1px 0 var(--ld-line); }
+
 .pg-hero { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
 .pg-hero-main { display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; min-height: 280px; padding: 48px 32px 36px; }
 .pg-kicker { font: 400 14px/21px var(--zodiak); letter-spacing: -1px; }
@@ -103,9 +113,11 @@ button { font: inherit; }
 
 /* ---- about ---- */
 .about { border-bottom: 1px solid var(--ld-line); }
-.pg-hero--video { grid-template-columns: minmax(0, 530fr) minmax(0, 910fr); grid-template-rows: minmax(0, 1fr); height: 231px; overflow: hidden; background: var(--ld-yellow); }
-.pg-hero-video { display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; }
+/* About: full-bleed band at the Figma proportions (video 530 : title 910, video box 530 x 231) */
+.pg-hero--video { grid-template-columns: minmax(0, 530fr) minmax(0, 910fr); margin-inline: calc(-1 * var(--pg-side)); background: var(--ld-yellow); }
+.pg-hero-video { display: block; width: 100%; aspect-ratio: 530 / 231; object-fit: cover; }
 .pg-hero--video .pg-hero-main { justify-content: center; min-height: 0; padding: 20px 24px; }
+.pg-hero--video .pg-hero-main::before { display: none; }
 .pg-hero--video .pg-hero-side { display: none; }
 .about-text { max-width: 880px; margin: 0 auto; padding: 48px 32px 64px; }
 .about-text p { max-width: 68ch; margin-bottom: 1.1em; font: 400 17px/1.8 var(--zodiak); color: var(--ink); }
@@ -133,12 +145,13 @@ button { font: inherit; }
   .pg-links::-webkit-scrollbar { display: none; }
   .pg-links a { flex: none; padding: 0 16px; }
   .pg-hero, .pg-hero--video, .pg-hero--lead { grid-template-columns: 1fr; }
+  .pg-hero-main::before, .pg-hero-main::after, .pg-hero-side::after { display: none !important; }
+  .pg-hero--video { margin-inline: 0; }
   .pg-hero--lead .pg-hero-main { min-height: 0; padding: 24px 20px; }
   .pg-hero--lead .pg-hero-side { padding: 16px 20px 24px; }
   .pg-hero--lead .pg-hero-side p { font-size: 20px; }
   .wgrid { grid-template-columns: 1fr; padding: 16px 17px 17px 16px; }
-  .pg-hero--video { height: auto; grid-template-rows: none; }
-  .pg-hero-video { height: clamp(160px, 44vw, 231px); }
+  .pg-hero-video { aspect-ratio: 16 / 9; }
   .pg-hero--video .pg-hero-main { padding: 24px 20px; }
   .pg-hero-main { min-height: 0; padding: 32px 20px 28px; }
   .pg-hero h1 { font-size: 38px; line-height: 42px; }
